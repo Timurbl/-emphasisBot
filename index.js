@@ -8,11 +8,9 @@ const MongoClient = require('mongodb').MongoClient;
 /*const uri = "mongodb+srv://timurbl:uejroBlF2rVXavy1@cluster0-2pzvu.mongodb.net/test?retryWrites=true";*/
 /*const uri = "mongodb+srv://timurbl:FbKqMj4ThvBRDgT6@cluster0-bg0px.mongodb.net/test?retryWrites=true"*/
 mongoose.Promise = global.Promise;
-mongoose.connect(config.DB_URI, {
-    useMongoClient: true
-})
+mongoose.connect(config.DB_URI, {useNewUrlParser: true})
     .then(() => console.log('MongoBD has started.'))
-    .catch((e => console.log(e)));
+    .catch((e => console.log('err: ', e)));
 
 
 const Person = mongoose.model('persons');
