@@ -1,22 +1,22 @@
-require('http').createServer().listen(process.env.PORT || 5000).on('request', function(req, res){
-    res.end('')
-})﻿
+require('./person.model');
 
 const config = require('./config');
-const lists = require('./lists');
 const mongoose = require('mongoose');
+const lists = require('./lists');
+const MongoClient = require('mongodb').MongoClient;
 
+/*const uri = "mongodb+srv://timurbl:uejroBlF2rVXavy1@cluster0-2pzvu.mongodb.net/test?retryWrites=true";*/
+/*const uri = "mongodb+srv://timurbl:FbKqMj4ThvBRDgT6@cluster0-bg0px.mongodb.net/test?retryWrites=true"*/
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/persons_emphasis_bot', {
+mongoose.connect(config.DB_URI, {
     useMongoClient: true
 })
     .then(() => console.log('MongoBD has started.'))
     .catch((e => console.log(e)));
 
-require('./person.model');
 
-const TelegramBot = require('node-telegram-bot-api');
 const Person = mongoose.model('persons');
+const TelegramBot = require('node-telegram-bot-api');
 const bot = new TelegramBot(config.TOKEN, {
     polling: true
 });
@@ -54,7 +54,7 @@ ${value[3]}
 ${value[4]}`;
 
     Person.updateOne({telegramId: msg.chat.id}, {
-       combo: 2
+        combo: 2
     })
         .then(_ => console.log('combo updated'))
         .catch(e => console.log(e));
@@ -165,10 +165,10 @@ bot.on('message', msg => {
                         check(well_done, msg, correct);
                         break;
                 }
-            }
+            }/*
             else {
                 bot.sendMessage(msg.chat.id, 'Для работы с ботом введите команду.')
-            }
+            }*/
         })
 });
 
