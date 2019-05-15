@@ -21,7 +21,6 @@ const bot = new TelegramBot(config.TOKEN, {
 
 
 bot.onText(/\/start/, msg => {
-
     const text = `Здравствуй, ${msg.from.first_name}! Я бот, который поможет тебе подготовиться к 4ому заданию ЕГЭ по русскому языку.`;
     bot.sendMessage(msg.chat.id, text)
 });
